@@ -13,6 +13,8 @@ services:
 
     Williarin\WordpressInterop\ManagerRegistryInterface: '@Williarin\WordpressInteropBundle\Bridge\ManagerRegistry'
 
+    Williarin\WordpressInterop\EntityManagerInterface: '@wordpress_interop.entity_manager'
+
     wordpress_interop.entity_manager.abstract:
         class: Williarin\WordpressInterop\EntityManager
         abstract: true
