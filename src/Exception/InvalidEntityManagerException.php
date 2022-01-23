@@ -11,6 +11,10 @@ final class InvalidEntityManagerException extends Exception
 {
     public function __construct(string $className)
     {
-        parent::__construct(sprintf('Service "%s" should be an instance of "%s".', $className, EntityManagerInterface::class));
+        parent::__construct(sprintf(
+            'Service "%s" should be an instance of "%s".',
+            $className,
+            EntityManagerInterface::class
+        ));
     }
 }

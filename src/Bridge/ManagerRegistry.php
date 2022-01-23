@@ -11,8 +11,11 @@ use Williarin\WordpressInteropBundle\Exception\InvalidEntityManagerException;
 
 final class ManagerRegistry extends AbstractManagerRegistry
 {
-    public function __construct(private ContainerInterface $container, array $managers, string $defaultManager)
-    {
+    public function __construct(
+        private ContainerInterface $container,
+        array $managers,
+        string $defaultManager
+    ) {
         parent::__construct($managers, $defaultManager);
     }
 
@@ -21,7 +24,7 @@ final class ManagerRegistry extends AbstractManagerRegistry
         $service = $this->container->get($name);
 
         if (!$service instanceof EntityManagerInterface) {
-            throw new InvalidEntityManagerException(get_class($service));
+            throw new InvalidEntityManagerException($service !== null ? $service::class : self::class);
         }
 
         return $service;

@@ -13,10 +13,10 @@ use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 final class WilliarinWordpressInteropExtension extends ConfigurableExtension
 {
-    protected function loadInternal(array $mergedConfig, ContainerBuilder $container)
+    protected function loadInternal(array $mergedConfig, ContainerBuilder $containerBuilder): void
     {
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
-        $loader->load('services.yaml');
+        $yamlFileLoader = new YamlFileLoader($containerBuilder, new FileLocator(__DIR__ . '/../../config'));
+        $yamlFileLoader->load('services.yaml');
 
         $managers = [];
 
@@ -24,20 +24,22 @@ final class WilliarinWordpressInteropExtension extends ConfigurableExtension
             $managers[$name] = sprintf('wordpress_interop.entity_manager.%s', $name);
         }
 
-        $container->setParameter('wordpress_interop.entity_managers', $managers);
+        $containerBuilder->setParameter('wordpress_interop.entity_managers', $managers);
 
         $defaultEntityManager = $mergedConfig['default_entity_manager'] ?? array_key_first($managers);
 
         $defaultEntityManagerDefinitionId = sprintf('wordpress_interop.entity_manager.%s', $defaultEntityManager);
 
-        $container->setParameter('wordpress_interop.default_entity_manager', $defaultEntityManager);
-        $container->setAlias('wordpress_interop.entity_manager', $defaultEntityManagerDefinitionId);
-        $container->getAlias('wordpress_interop.entity_manager')->setPublic(true);
+        $containerBuilder->setParameter('wordpress_interop.default_entity_manager', $defaultEntityManager);
+        $containerBuilder->setAlias('wordpress_interop.entity_manager', $defaultEntityManagerDefinitionId);
+        $containerBuilder->getAlias('wordpress_interop.entity_manager')
+            ->setPublic(true)
+        ;
 
         foreach ($mergedConfig['entity_managers'] ?? [] as $name => $options) {
             $entityManagerId = sprintf('wordpress_interop.entity_manager.%s', $name);
 
-            $container
+            $containerBuilder
                 ->setDefinition($entityManagerId, new ChildDefinition('wordpress_interop.entity_manager.abstract'))
                 ->setPublic(true)
                 ->setArguments([
