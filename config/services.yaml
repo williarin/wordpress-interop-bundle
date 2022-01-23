@@ -1,0 +1,20 @@
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Williarin\WordpressInteropBundle\Bridge\ManagerRegistry:
+        arguments:
+            $managers: '%wordpress_interop.entity_managers%'
+            $defaultManager: '%wordpress_interop.default_entity_manager%'
+
+    Williarin\WordpressInterop\ManagerRegistryInterface: '@Williarin\WordpressInteropBundle\Bridge\ManagerRegistry'
+
+    wordpress_interop.entity_manager.abstract:
+        class: Williarin\WordpressInterop\EntityManager
+        abstract: true
+        lazy: true
+        factory: ['Williarin\WordpressInterop\EntityManager', 'create']
