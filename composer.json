@@ -1,15 +1,8 @@
 {
     "name": "williarin/wordpress-interop-bundle",
     "description": "Symfony bundle to integrate williarin/wordpress-interop in the framework",
-    "type": "symfony-bundle",
     "license": "MIT",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "autoload": {
-        "psr-4": {
-            "Williarin\\WordpressInteropBundle\\": "src/"
-        }
-    },
+    "type": "symfony-bundle",
     "authors": [
         {
             "name": "William Arin",
@@ -18,9 +11,24 @@
     ],
     "require": {
         "php": ">=8.0",
+        "symfony/config": "^6.0",
         "symfony/dependency-injection": "^6.0",
-        "williarin/wordpress-interop": "dev-master",
         "symfony/http-kernel": "^6.0",
-        "symfony/config": "^6.0"
+        "williarin/wordpress-interop": "dev-master"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.23",
+        "kubawerlos/php-cs-fixer-custom-fixers": "^3.7",
+        "rector/rector": "^0.12.13",
+        "roave/security-advisories": "dev-latest",
+        "symplify/coding-standard": "^10.0",
+        "symplify/easy-coding-standard": "^10.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Williarin\\WordpressInteropBundle\\": "src/"
+        }
     }
 }
