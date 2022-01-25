@@ -20,3 +20,7 @@ services:
         abstract: true
         lazy: true
         factory: ['Williarin\WordpressInterop\EntityManager', 'create']
+
+    serializer.normalizer.serialized_array:
+        class: Williarin\WordpressInterop\Serializer\SerializedArrayDenormalizer
+        arguments: ['@serializer.normalizer.object']
