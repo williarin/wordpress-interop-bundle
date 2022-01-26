@@ -18,9 +18,9 @@ doctrine:
     dbal:
         connections:
             my_dbal_connection:
-                driver:   pdo_mysql
+                driver: pdo_mysql
                 url: '%env(resolve:WORDPRESS_DATABASE_URL)%'
-                charset:  UTF8
+                charset: UTF8
 ```
 
 ```yaml
