@@ -12,7 +12,7 @@ services:
             $defaultManager: '%wordpress_interop.default_entity_manager%'
 
     Williarin\WordpressInterop\Bridge\Repository\:
-        resource: '../vendor/williarin/wordpress-interop/src/Bridge/Repository/'
+        resource: '%kernel.project_dir%/vendor/williarin/wordpress-interop/src/Bridge/Repository/'
 
     Williarin\WordpressInterop\ManagerRegistryInterface: '@Williarin\WordpressInteropBundle\Bridge\ManagerRegistry'
 
