@@ -11,15 +11,18 @@ services:
             $managers: '%wordpress_interop.entity_managers%'
             $defaultManager: '%wordpress_interop.default_entity_manager%'
 
+    Williarin\WordpressInterop\Bridge\Repository\:
+        resource: '../vendor/williarin/wordpress-interop/src/Bridge/Repository/'
+
     Williarin\WordpressInterop\ManagerRegistryInterface: '@Williarin\WordpressInteropBundle\Bridge\ManagerRegistry'
 
     Williarin\WordpressInterop\EntityManagerInterface: '@wordpress_interop.entity_manager'
 
     wordpress_interop.entity_manager.abstract:
-        class: Williarin\WordpressInterop\EntityManager
+        class: Williarin\WordpressInteropBundle\Bridge\EntityManager
         abstract: true
         lazy: true
-        factory: ['Williarin\WordpressInterop\EntityManager', 'create']
+        factory: ['Williarin\WordpressInteropBundle\Bridge\EntityManagerFactory', 'create']
 
     serializer.normalizer.serialized_array:
         class: Williarin\WordpressInterop\Serializer\SerializedArrayDenormalizer

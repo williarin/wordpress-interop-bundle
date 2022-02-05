@@ -14,7 +14,7 @@
         "symfony/config": "^6.0",
         "symfony/dependency-injection": "^6.0",
         "symfony/http-kernel": "^6.0",
-        "williarin/wordpress-interop": "dev-master"
+        "williarin/wordpress-interop": "^1.0"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.23",
