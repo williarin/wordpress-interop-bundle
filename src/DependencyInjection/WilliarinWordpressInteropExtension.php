@@ -23,6 +23,10 @@ final class WilliarinWordpressInteropExtension extends ConfigurableExtension
             ->addTag('wordpress_interop.repository')
         ;
 
+        if (empty($mergedConfig['entity_managers'])) {
+            return;
+        }
+
         $managers = [];
 
         foreach (array_keys($mergedConfig['entity_managers'] ?? []) as $name) {
