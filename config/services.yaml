@@ -8,6 +8,7 @@ services:
 
     Williarin\WordpressInteropBundle\Bridge\ManagerRegistry:
         arguments:
+            $container: '@service_container'
             $managers: '%wordpress_interop.entity_managers%'
             $defaultManager: '%wordpress_interop.default_entity_manager%'
 
