@@ -27,3 +27,8 @@ services:
     serializer.normalizer.serialized_array:
         class: Williarin\WordpressInterop\Serializer\SerializedArrayDenormalizer
         arguments: ['@serializer.normalizer.object']
+
+    Williarin\WordpressInterop\Persistence\DuplicationService:
+        arguments:
+            $slugger: '@slugger'
+    Williarin\WordpressInterop\Persistence\DuplicationServiceInterface: '@Williarin\WordpressInterop\Persistence\DuplicationService'
