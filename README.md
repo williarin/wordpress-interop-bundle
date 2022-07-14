@@ -41,6 +41,7 @@ williarin_wordpress_interop:
 
 * `Williarin\WordpressInterop\ManagerRegistryInterface` to access all your managers and repositories.
 * `Williarin\WordpressInterop\EntityManagerInterface` to get the default entity manager
+* `Williarin\WordpressInterop\Persistence\DuplicationServiceInterface` to get the default duplication service
 * `wordpress_interop.entity_manager` as an alternative to `Williarin\WordpressInterop\EntityManagerInterface`
 
 ## License
