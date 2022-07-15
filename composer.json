@@ -14,7 +14,7 @@
         "symfony/config": "^6.0",
         "symfony/dependency-injection": "^6.0",
         "symfony/http-kernel": "^6.0",
-        "williarin/wordpress-interop": "^1.8.0"
+        "williarin/wordpress-interop": "^1.8.1"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.23",
@@ -34,6 +34,11 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.x-dev"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
         }
     }
 }

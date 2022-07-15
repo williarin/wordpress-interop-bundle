@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "54c9ba980ac5d5b62194c4d08dcba4aa",
+    "content-hash": "154c2a8c0a3bccb396f566d258b6d220",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2802,16 +2802,16 @@
         },
         {
             "name": "williarin/wordpress-interop",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/williarin/wordpress-interop.git",
-                "reference": "01b4d920c93128a9e77d709a6df8982ea4844dd1"
+                "reference": "3f82557a741b57b50e13226b23fef3203845d45c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/williarin/wordpress-interop/zipball/01b4d920c93128a9e77d709a6df8982ea4844dd1",
-                "reference": "01b4d920c93128a9e77d709a6df8982ea4844dd1",
+                "url": "https://api.github.com/repos/williarin/wordpress-interop/zipball/3f82557a741b57b50e13226b23fef3203845d45c",
+                "reference": "3f82557a741b57b50e13226b23fef3203845d45c",
                 "shasum": ""
             },
             "require": {
@@ -2861,14 +2861,17 @@
             "description": "Interoperability library to work with WordPress database in third party apps",
             "keywords": [
                 "database",
+                "dbal",
+                "doctrine",
                 "interop",
+                "orm",
                 "wordpress"
             ],
             "support": {
                 "issues": "https://github.com/williarin/wordpress-interop/issues",
-                "source": "https://github.com/williarin/wordpress-interop/tree/1.8.0"
+                "source": "https://github.com/williarin/wordpress-interop/tree/1.8.1"
             },
-            "time": "2022-07-14T12:37:28+00:00"
+            "time": "2022-07-15T07:06:03+00:00"
         }
     ],
     "packages-dev": [
@@ -5507,5 +5510,5 @@
         "php": ">=8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }

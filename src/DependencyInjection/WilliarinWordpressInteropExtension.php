@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 use Williarin\WordpressInterop\Bridge\Repository\RepositoryInterface;
+use Williarin\WordpressInterop\Persistence\DuplicationServiceInterface;
 
 final class WilliarinWordpressInteropExtension extends ConfigurableExtension
 {
@@ -55,6 +56,7 @@ final class WilliarinWordpressInteropExtension extends ConfigurableExtension
                     new Reference(sprintf('doctrine.dbal.%s_connection', $options['connection'])),
                     new Reference('serializer'),
                     $options['tables_prefix'],
+                    new Reference(DuplicationServiceInterface::class),
                 ])
                 ->addMethodCall('setContainer', [new Reference('service_container')])
             ;
