@@ -14,6 +14,9 @@ services:
 
     Williarin\WordpressInterop\Bridge\Repository\:
         resource: '%kernel.project_dir%/vendor/williarin/wordpress-interop/src/Bridge/Repository/'
+        calls:
+            - setEntityManager: ['@wordpress_interop.entity_manager']
+            - setSerializer: ['@serializer']
 
     Williarin\WordpressInterop\ManagerRegistryInterface: '@Williarin\WordpressInteropBundle\Bridge\ManagerRegistry'
 
@@ -32,4 +35,5 @@ services:
     Williarin\WordpressInterop\Persistence\DuplicationService:
         arguments:
             $slugger: '@slugger'
+
     Williarin\WordpressInterop\Persistence\DuplicationServiceInterface: '@Williarin\WordpressInterop\Persistence\DuplicationService'
