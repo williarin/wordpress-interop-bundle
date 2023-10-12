@@ -10,7 +10,7 @@ use Williarin\WordpressInteropBundle\DependencyInjection\Compiler\RepositoryComp
 
 final class WilliarinWordpressInteropBundle extends Bundle
 {
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new RepositoryCompilerPass());
     }
