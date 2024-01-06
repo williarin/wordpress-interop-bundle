@@ -16,7 +16,7 @@ services:
         resource: '%kernel.project_dir%/vendor/williarin/wordpress-interop/src/Bridge/Repository/'
         calls:
             - setEntityManager: ['@wordpress_interop.entity_manager']
-            - setSerializer: ['@serializer']
+            - setSerializer: ['@wordpress_interop.serializer']
 
     Williarin\WordpressInterop\ManagerRegistryInterface: '@Williarin\WordpressInteropBundle\Bridge\ManagerRegistry'
 
@@ -27,6 +27,19 @@ services:
         abstract: true
         lazy: true
         factory: ['Williarin\WordpressInteropBundle\Bridge\EntityManagerFactory', 'create']
+
+    wordpress_interop.serializer:
+        class: Symfony\Component\Serializer\Serializer
+        arguments:
+            $normalizers: ['@wordpress_interop.normalizer']
+
+    wordpress_interop.normalizer:
+        class: Symfony\Component\Serializer\Normalizer\ObjectNormalizer
+        arguments:
+            $nameConverter: '@wordpress_interop.name_converter'
+
+    wordpress_interop.name_converter:
+        class: Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter
 
     serializer.normalizer.serialized_array:
         class: Williarin\WordpressInterop\Serializer\SerializedArrayDenormalizer
