@@ -29,17 +29,7 @@ services:
         factory: ['Williarin\WordpressInteropBundle\Bridge\EntityManagerFactory', 'create']
 
     wordpress_interop.serializer:
-        class: Symfony\Component\Serializer\Serializer
-        arguments:
-            $normalizers: ['@wordpress_interop.normalizer']
-
-    wordpress_interop.normalizer:
-        class: Symfony\Component\Serializer\Normalizer\ObjectNormalizer
-        arguments:
-            $nameConverter: '@wordpress_interop.name_converter'
-
-    wordpress_interop.name_converter:
-        class: Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter
+        class: Williarin\WordpressInteropBundle\Serializer\Serializer
 
     serializer.normalizer.serialized_array:
         class: Williarin\WordpressInterop\Serializer\SerializedArrayDenormalizer
