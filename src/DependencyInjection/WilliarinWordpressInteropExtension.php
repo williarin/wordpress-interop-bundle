@@ -7,14 +7,24 @@ namespace Williarin\WordpressInteropBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 use Williarin\WordpressInterop\Bridge\Repository\RepositoryInterface;
 use Williarin\WordpressInterop\Persistence\DuplicationServiceInterface;
 
-final class WilliarinWordpressInteropExtension extends ConfigurableExtension
+final class WilliarinWordpressInteropExtension extends ConfigurableExtension implements PrependExtensionInterface
 {
+    public function prepend(ContainerBuilder $container): void
+    {
+        $container->prependExtensionConfig('framework', [
+            'serializer' => [
+                'name_converter' => 'serializer.name_converter.camel_case_to_snake_case',
+            ],
+        ]);
+    }
+
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
         $yamlFileLoader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
