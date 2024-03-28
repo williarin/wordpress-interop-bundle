@@ -1,0 +1,87 @@
+name: Test
+
+on:
+    push:
+        branches:
+            - master
+        paths-ignore:
+            - '**/README.md'
+    pull_request:
+        branches:
+            - '**'
+        paths-ignore:
+            - '**/README.md'
+
+concurrency:
+    group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+    cancel-in-progress: true
+
+jobs:
+    project_installation_docker:
+        name: Test project install
+
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                php: ['8.0', '8.1', '8.2', '8.3']
+                symfony: ['6.0.*', '6.1.*', '6.2.*', '6.3.*', '6.4.*', '7.0.*']
+                exclude:
+                    - php: '8.0'
+                      symfony: '6.0.*' # Requires PHP >= 8.1 for compatibility
+                    - php: '8.0'
+                      symfony: '6.1.*' # Requires PHP >= 8.1 for compatibility
+                    - php: '8.0'
+                      symfony: '6.2.*' # Requires PHP >= 8.1 for compatibility
+                    - php: '8.0'
+                      symfony: '6.3.*' # Requires PHP >= 8.1 for compatibility
+                    - php: '8.0'
+                      symfony: '6.4.*' # Requires PHP >= 8.1 for compatibility
+                    - php: '8.0'
+                      symfony: '7.0.*' # Requires PHP >= 8.2 for compatibility
+                    - php: '8.1'
+                      symfony: '7.0.*' # Requires PHP >= 8.2 for compatibility
+
+        steps:
+            -   uses: FranzDiebold/github-env-vars-action@v2
+
+            -   uses: actions/checkout@v4
+                with:
+                    path: temp/wordpress-interop-bundle
+
+            -   name: Setup PHP
+                id: setup-php
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php }}
+                    extensions: dom, curl, libxml, mbstring, zip, redis, sysvsem
+                    tools: composer:v2, symfony
+                    coverage: none
+                env:
+                    COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            -   name: Create a new project
+                run: |
+                    git config --global user.email "me@domain.com"
+                    git config --global user.name "williarin"
+                    symfony new newproject --webapp --version="${{ matrix.symfony }}"
+                    cd newproject
+                    cp -Rp . ../
+                    cd ..
+                    rm -rf newproject
+                    rm -f composer.lock
+                    composer config --no-interaction minimum-stability dev
+                    composer config --no-interaction prefer-stable true
+                    composer config --no-interaction repositories.wordpress-interop-bundle path ./temp/wordpress-interop-bundle
+                    composer config --no-interaction extra.symfony.allow-contrib true
+                    composer require --no-interaction williarin/wordpress-interop-bundle
+
+            -   name: Launch Symfony server
+                run: |
+                    symfony server:start --no-tls --allow-http --port=8000 -d
+                    sleep 5
+
+            -   name: Check that website is up and running
+                run: |
+                    rc=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8000)
+                    [ $rc -eq 404 ]
